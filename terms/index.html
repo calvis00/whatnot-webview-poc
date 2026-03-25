@@ -1,60 +1,51 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Whatnot Security Test</title>
+  <title>Whatnot Promo (Security Test)</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <style>
-    body {
-      font-family: Arial;
-      background: #fff;
-      padding: 20px;
+    body { font-family: Arial, sans-serif; background:#fff; margin:0; padding:20px; }
+    .card {
+      max-width: 420px; margin:auto; border:1px solid #eee; border-radius:12px;
+      padding:16px; box-shadow:0 4px 12px rgba(0,0,0,0.08);
     }
-    .box {
-      max-width: 400px;
-      margin: auto;
+    h2 { margin-top:0; }
+    .qr {
+      width: 220px; height: 220px; margin: 12px auto; display:block;
+      border:1px solid #ddd; border-radius:8px;
     }
-    h2 {
-      color: #000;
+    .btn {
+      width:100%; padding:12px; border:none; border-radius:8px;
+      background:#000; color:#fff; font-weight:600; margin-top:12px;
     }
-    input {
-      width: 100%;
-      padding: 10px;
-      margin: 10px 0;
-    }
-    button {
-      width: 100%;
-      padding: 10px;
-      background: black;
-      color: white;
-      border: none;
-    }
-    .warning {
-      color: red;
-      font-size: 12px;
+    .note { font-size:12px; color:#c00; margin-top:10px; }
+    .fake-bar {
+      font-size:12px; color:#666; text-align:center; margin-bottom:10px;
     }
   </style>
 </head>
 <body>
+  <div class="card">
+    <div class="fake-bar">Whatnot • In-app content</div>
+    <h2>🎁 Special Wallet Bonus</h2>
+    <p>For demonstration: an attacker could show a convincing “promo” inside the app.</p>
 
-<div class="box">
-  <h2>Whatnot Account Verification</h2>
-  <p>Please verify your account to continue.</p>
+    <!-- Public QR image (no tracking, no data collection) -->
+    <img class="qr"
+      src="https://api.qrserver.com/v1/create-qr-code/?size=220x220&data=demo"
+      alt="QR Code (demo only)">
 
-  <input placeholder="Email or Username">
-  <input placeholder="Password" type="password">
+    <button class="btn" onclick="demo()">Add Funds (Demo)</button>
 
-  <button onclick="demo()">Verify</button>
+    <p class="note">
+      ⚠️ Security research demo. No data is collected and no real payment occurs.
+    </p>
+  </div>
 
-  <p class="warning">
-    ⚠️ This is a security research demo. No data is collected.
-  </p>
-</div>
-
-<script>
-function demo() {
-  alert("This demonstrates that a fake login page can be shown inside the app.");
-}
-</script>
-
+  <script>
+    function demo() {
+      alert("This demonstrates that a convincing promo/payment UI can be shown inside the app WebView.");
+    }
+  </script>
 </body>
 </html>
