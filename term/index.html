@@ -1,86 +1,9 @@
-<!DOCTYPE html>
-<html>
-<head>
-  <title>Whatnot Promo</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-  <style>
-    body {
-      margin: 0;
-      font-family: Arial, sans-serif;
-      background: #fff;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      height: 100vh;
-    }
-
-    .card {
-      width: 90%;
-      max-width: 400px;
-      padding: 20px;
-      border-radius: 12px;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-      text-align: center;
-    }
-
-    h2 {
-      margin-top: 0;
-    }
-
-    .qr {
-      width: 200px;
-      height: 200px;
-      margin: 15px auto;
-      border: 1px solid #ddd;
-      border-radius: 8px;
-    }
-
-    button {
-      width: 100%;
-      padding: 12px;
-      background: black;
-      color: white;
-      border: none;
-      border-radius: 8px;
-      font-size: 16px;
-      margin-top: 10px;
-    }
-
-    .note {
-      font-size: 12px;
-      color: red;
-      margin-top: 10px;
-    }
-  </style>
-</head>
-
-<body>
-
-<div class="card">
-  <h2>🎁 Special Wallet Bonus</h2>
-  <p>Add funds and receive bonus rewards.</p>
-
-  <!-- Demo QR (non-malicious) -->
-  <img class="qr"
-    src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=demo"
-    alt="QR Code">
-
-  <button onclick="redirectNow()">Continue</button>
-
-  <p class="note">
-    ⚠️ Security research demo. No real transaction.
-  </p>
-</div>
-
 <script>
-function redirectNow() {
-  // simulate real flow → then redirect to legit site
-  setTimeout(() => {
-    window.location.href = "https://www.whatnot.com";
-  }, 1000);
+for (let key in window) {
+  if (typeof window[key] === "object") {
+    try {
+      console.log("Bridge:", key, window[key]);
+    } catch(e){}
+  }
 }
 </script>
-
-</body>
-</html>
